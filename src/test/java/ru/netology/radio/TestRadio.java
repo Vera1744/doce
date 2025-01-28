@@ -6,6 +6,29 @@ import org.junit.jupiter.api.Test;
 public class TestRadio {
 
     @Test
+    public void shouldSetNumberStation() {
+        Radio rad = new Radio();
+
+        rad.setNumberStation(15);
+
+        int expected = 15;
+        int actual = rad.getNumberStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void NotshouldSetNumberStation() {
+        Radio rad = new Radio();
+
+        rad.setNumberStation(-15);
+
+        int expected = 10;
+        int actual = rad.getNumberStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSetStationsMaxMinusOne() {
         Radio rad = new Radio();
 
@@ -16,6 +39,7 @@ public class TestRadio {
 
         Assertions.assertEquals(expected, actual);
     }
+
 
     @Test
     public void shouldSetStationsMax() {
@@ -34,6 +58,41 @@ public class TestRadio {
         Radio rad = new Radio();
 
         rad.setCurrentStation(10);
+
+        int expected = 0;
+        int actual = rad.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldSetStationsMaxFlexMinusOne() {
+        Radio rad = new Radio(21);
+
+        rad.setCurrentStation(19);
+
+        int expected = 19;
+        int actual = rad.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetStationsMaxFlex() {
+        Radio rad = new Radio(21);
+
+        rad.setCurrentStation(20);
+
+        int expected = 20;
+        int actual = rad.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSetStationAboveMaxFlex() {
+        Radio rad = new Radio(21);
+
+        rad.setCurrentStation(21);
 
         int expected = 0;
         int actual = rad.getCurrentStation();
@@ -102,7 +161,18 @@ public class TestRadio {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void shouldNextStationReturnToStartFlex() {
+        Radio rad = new Radio(31);
+        rad.setCurrentStation(30);
 
+        rad.nextStation();
+
+        int expected = 0;
+        int actual = rad.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
     @Test
     public void shouldPrevStation() {
         Radio rad = new Radio();
@@ -123,24 +193,12 @@ public class TestRadio {
 
         rad.prevStation();
 
-        int expected = 9;
+        int expected = rad.getNumberStation() -1;
         int actual = rad.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
     }
 
-
-    //@Test
-    //public void shouldSetVolume() {
-    //  Radio rad = new Radio();
-
-    //rad.getCurrentVolume(15);
-
-    //int expected = 15;
-    //int actual = rad.getCurrentVolume;
-
-    //Assertions.assertEquals(expected, actual);
-    //}
     @Test
     public void shouldIncreaseVolume() {
         Radio rad = new Radio();
